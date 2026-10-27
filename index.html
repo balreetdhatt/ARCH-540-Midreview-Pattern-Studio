@@ -1,0 +1,379 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pattern Studio: mid review</title>
+<meta name="description" content="Five-minute mid-review deck for Pattern Studio, ARCH 540 Assignment 2.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --bg: #F6F8FA; --surface: #FFFFFF; --fg: #15202B; --muted: #566370; --line: #D6DCE2; --line-strong: #87939F;
+  --person: #1D5CA8; --person-bg: #E5EEF9; --soft-bg: #EDF0F3; --model: #8A5E00; --model-bg: #FAF0D8;
+  --pain: #B3261E; --pain-bg: #FCEAE8; --cover: #1F2D3A; --cover-soft: #D9E1E9; --on-fill: #FFFFFF;
+  --letterbox: #0B1015;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151B; --surface: #16202A; --fg: #E5EBF0; --muted: #9AA7B3; --line: #2B3843; --line-strong: #6B7987;
+    --person: #7FB4F2; --person-bg: #172A3D; --soft-bg: #1B252E; --model: #E2BA55; --model-bg: #2D2710;
+    --pain: #FF8F82; --pain-bg: #3A1E1B; --cover: #C9D6E2; --cover-soft: #2A3743; --on-fill: #0E151B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151B; --surface: #16202A; --fg: #E5EBF0; --muted: #9AA7B3; --line: #2B3843; --line-strong: #6B7987;
+  --person: #7FB4F2; --person-bg: #172A3D; --soft-bg: #1B252E; --model: #E2BA55; --model-bg: #2D2710;
+  --pain: #FF8F82; --pain-bg: #3A1E1B; --cover: #C9D6E2; --cover-soft: #2A3743; --on-fill: #0E151B;
+  color-scheme: dark;
+}
+
+html, body { margin:0; height:100%; background:var(--letterbox); overflow:hidden; }
+body { font-family:var(--sans); color:var(--fg); font-size:28px; line-height:1.35; }
+.stage { position:absolute; left:0; top:0; width:1920px; height:1080px; background:var(--bg); color:var(--fg);
+  transform-origin:0 0; overflow:hidden; }
+.slide { position:absolute; inset:0; box-sizing:border-box; padding:44px 60px 64px; display:none; flex-direction:column; }
+.slide.on { display:flex; }
+.eyebrow { font:500 24px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+h1 { font:600 48px/1.12 var(--sans); letter-spacing:-.012em; margin:8px 0 8px; text-wrap:balance; }
+h2 { font:600 34px/1.2 var(--sans); margin:0 0 14px; }
+p { margin:0; }
+a { color:var(--person); text-underline-offset:3px; }
+code, .mono { font-family:var(--mono); font-size:1em; }
+.cap { font-size:24px; line-height:1.35; color:var(--muted); margin-top:12px; max-width:1800px; }
+.cap b { color:var(--fg); font-weight:600; }
+.fig { flex:1; min-height:0; display:flex; align-items:center; }
+.fig svg { width:1800px; height:auto; max-height:100%; }
+.foot { position:absolute; left:60px; right:60px; bottom:20px; display:flex; justify-content:space-between;
+  font:400 24px var(--mono); color:var(--muted); pointer-events:none; }
+.hint { font:400 24px var(--mono); color:var(--muted); }
+.slide .legend { font-size:24px; gap:6px 28px; margin:8px 0 4px; color:var(--muted); }
+.slide .sw { width:36px; height:22px; }
+.slide .k { width:34px; height:34px; font-size:24px; }
+.slide .dot { width:36px; height:36px; font-size:24px; }
+.slide .dia { width:18px; height:18px; }
+/* title */
+.title-grid { flex:1; display:grid; grid-template-columns: 1fr 880px; gap:60px; align-items:center; min-height:0; }
+.title-grid img { width:880px; height:auto; border-radius:10px; border:1px solid var(--line); display:block; }
+h1.big { font-size:104px; line-height:1; margin:0 0 22px; letter-spacing:-.02em; }
+.tag { font-size:40px; line-height:1.22; max-width:860px; margin:0 0 36px; text-wrap:balance; }
+.meta { font-size:26px; color:var(--muted); line-height:1.5; }
+.meta b { color:var(--fg); font-weight:500; }
+/* statements */
+.two { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-content:center; margin-top:40px; padding-bottom:72px; }
+.two h2 { font-size:40px; margin-bottom:22px; }
+.two .list { font-size:44px; gap:44px; line-height:1.26; }
+.two h2 { padding-bottom:12px; border-bottom:2px solid var(--line-strong); }
+.two h2.pn { color:var(--pain); }
+.two h2.ok { color:var(--person); }
+.list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:26px; font-size:34px; line-height:1.3; }
+.list li { padding-left:36px; position:relative; }
+.list li::before { content:""; position:absolute; left:0; top:.52em; width:12px; height:12px; border-radius:50%; background:var(--cover); }
+/* demo grid */
+.grid { flex:1; min-height:0; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(2, 1fr); gap:24px 30px; margin-top:12px; }
+.cell { margin:0; display:flex; flex-direction:column; gap:8px; min-height:0; }
+.cell .im { width:100%; aspect-ratio:1500/940; border-radius:8px; border:1px solid var(--line); overflow:hidden; background:var(--soft-bg); position:relative; }
+.cell img, .cell video { width:100%; height:100%; object-fit:cover; display:block; }
+.cell.vid video { object-fit:contain; background:#0B1015; }
+.cell figcaption { font-size:24px; line-height:1.3; color:var(--muted); }
+.cell figcaption b { color:var(--fg); font-weight:600; }
+.vid .ph { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  border:3px dashed var(--pain); border-radius:8px; background:var(--pain-bg); color:var(--fg); text-align:center; padding:20px; box-sizing:border-box; }
+.vid .ph .lbl { font:600 30px var(--sans); }
+.vid .ph code { font:500 26px var(--mono); color:var(--pain); }
+.vid .ph .nt { font-size:24px; color:var(--muted); }
+.vid video { display:none; }
+.vid.ready video { display:block; }
+.vid.ready .ph { display:none; }
+/* methodology */
+.three { flex:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:56px; align-content:center; margin-top:40px; padding-bottom:72px; }
+.three h2 { font-size:38px; padding-bottom:10px; margin-bottom:22px; border-bottom:2px solid var(--line-strong); }
+.three .list { font-size:38px; gap:36px; line-height:1.28; }
+/* sources */
+.src { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:18px 56px; align-content:center; margin-top:36px; padding-bottom:12px; font-size:27px; line-height:1.32; }
+.src div { padding:10px 0; border-bottom:1px solid var(--line); }
+.src .who { color:var(--muted); }
+.src a { color:var(--person); word-break:break-all; }
+.attrib { margin-top:24px; font-size:24px; color:var(--muted); line-height:1.35; }
+.attrib b { color:var(--fg); font-weight:600; }
+
+.legend { display:flex; flex-wrap:wrap; gap:10px 26px; color:var(--muted); align-items:center; }
+.legend span { display:inline-flex; align-items:center; gap:9px; white-space:nowrap; }
+.sw { display:inline-block; width:30px; height:19px; border-radius:4px; border:2px solid var(--line-strong); box-sizing:border-box; }
+.sw.person { background:var(--person-bg); border-color:var(--person); }
+.sw.soft { background:var(--soft-bg); }
+.sw.model { background:var(--model-bg); border-color:var(--model); border-style:dashed; }
+.sw.stop { background:var(--pain-bg); border-color:var(--pain); border-style:dashed; }
+.sw.check { background:var(--surface); border:3px solid var(--fg); }
+.sw.end { background:var(--surface); border-color:var(--fg); border-radius:10px; }
+.k { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:4px; font:600 15px var(--mono); color:var(--on-fill); }
+.k.J { background:var(--person); } .k.R { background:var(--muted); } .k.I { background:var(--surface); color:var(--muted); border:1.5px solid var(--muted); }
+.dot { display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--pain); color:var(--on-fill); font:600 15px var(--mono); }
+.dia { width:14px; height:14px; background:var(--fg); transform:rotate(45deg) scale(.8); display:inline-block; }
+
+svg.diagram { display:block; width:100%; height:auto; font-family: var(--sans); }
+.box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; }
+.box.person { fill: var(--person-bg); stroke: var(--person); }
+.box.soft { fill: var(--soft-bg); stroke: var(--line-strong); }
+.box.model { fill: var(--model-bg); stroke: var(--model); stroke-dasharray: 9 6; }
+.box.stop { fill: var(--pain-bg); stroke: var(--pain); stroke-dasharray: 9 6; }
+.box.lane { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 10 8; }
+.box.plain { fill: var(--surface); stroke: var(--line); }
+.box.check { fill: var(--surface); stroke: var(--fg); stroke-width: 3.5; }
+.box.end { fill: var(--surface); stroke: var(--fg); stroke-width: 2.4; }
+.t { font: 600 28px var(--sans); fill: var(--fg); }
+.tl { font: 600 28px var(--sans); fill: var(--fg); }
+.tl.pn { fill: var(--pain); }
+.bt { font: 400 24px var(--sans); fill: var(--fg); }
+.bt.mu { fill: var(--muted); }
+.b2 { font: 400 26px var(--sans); fill: var(--fg); }
+.b2.mu { fill: var(--muted); }
+.m { font: 400 24px var(--mono); fill: var(--muted); }
+.m.strong { fill: var(--fg); }
+.nt { font: 400 24px var(--mono); fill: var(--muted); }
+.nt.strong { fill: var(--fg); }
+.colnum { font: 600 28px var(--mono); fill: var(--fg); }
+.chip { font: 500 24px var(--mono); letter-spacing: .05em; }
+.chip.person { fill: var(--person); } .chip.soft { fill: var(--muted); } .chip.model { fill: var(--model); }
+.chip.pain { fill: var(--pain); } .chip.check { fill: var(--fg); } .chip.end { fill: var(--fg); }
+.ln { stroke: var(--line-strong); stroke-width: 2.4; fill: none; }
+.ln.dash { stroke-dasharray: 10 8; }
+.ln.pn { stroke: var(--pain); }
+.mk { fill: var(--line-strong); } .mkp { fill: var(--pain); }
+.pain { fill: var(--pain); }
+.pnum { font: 600 24px var(--mono); fill: var(--on-fill); }
+.tagJ { fill: var(--person); } .tagR { fill: var(--muted); } .tagI { fill: var(--surface); stroke: var(--muted); stroke-width: 2; }
+.tagt { font: 600 24px var(--mono); fill: var(--on-fill); } .tagt.i { fill: var(--muted); }
+.hand { fill: var(--fg); }
+.cov2 { fill: var(--cover); }
+.cov1 { fill: var(--cover-soft); stroke: var(--cover); stroke-width: 2; }
+.cov0 { fill: none; stroke: var(--line); stroke-width: 2; }
+.gapc { fill: var(--pain-bg); stroke: var(--pain); stroke-width: 2; stroke-dasharray: 8 6; }
+.sep { stroke: var(--line); stroke-width: 1.5; }
+.sepb { stroke: var(--line-strong); stroke-width: 2.4; }
+.stoplbl { font: 600 24px var(--mono); letter-spacing: .08em; fill: var(--pain); }
+.stopt { font: 400 24px var(--mono); fill: var(--fg); }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+<section class="slide s-title" data-screen-label="01 Title">
+
+<div class="eyebrow">ARCH 540 · Assignment 2 · Mid review · Fri Oct 23 2026</div>
+<div class="title-grid">
+  <div>
+    <h1 class="big">Pattern Studio</h1>
+    <p class="tag">from a motif, a photograph or a sentence to a fabricable panel</p>
+    <p class="meta"><b>Balreet Dhatt</b> · UBC M.Arch<br>Live tool: <a href="https://claude.ai/artifact/9rXMyBMiEa2braopF7yDky">link</a> · <a href="pattern-studio.html">this copy</a><br>One HTML file. No build step, no server.</p>
+  </div>
+  <img src="img/sheet1.png" alt="Contact sheet of twelve cut patterns made in Pattern Studio">
+</div>
+<p class="hint">← → or Space to move · T switches light and dark</p>
+
+<div class="foot"><span>01 · Title</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="02 Background">
+
+<div class="eyebrow">Background · how it is done today</div>
+<h1>Seven steps, one vendor, and the meaning travels in one head</h1>
+<div class="legend" aria-label="Legend">
+  <span><i class="sw person"></i>Person step</span>
+  <span><i class="sw soft"></i>Software step</span>
+  <span><i class="dot">1</i>Pain point</span>
+  <span><i class="sw stop"></i>Where a tool stops</span>
+</div>
+<div class="fig"><svg class="diagram" viewBox="0 0 1800 480" role="img" aria-label="As-is workflow in seven steps, from collecting references to hand-over, with four numbered pain points, a vendor-only branch for picture-to-panel work, and one dashed loop from review back to interpretation."><defs><marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d1p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><rect x="20" y="86" width="224" height="156" rx="8" class="box person"/><text x="34" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="34" y="164" class="t" data-maxw="200">Collect</text><text x="34" y="198" class="t" data-maxw="200">references</text><text x="34" y="230" class="m" data-maxw="200">web, books</text><text x="20" y="278" class="m strong" data-maxw="224">→ moodboard</text><line x1="244" y1="164" x2="274" y2="164" class="ln" marker-end="url(#d1)"/><rect x="276" y="86" width="224" height="156" rx="8" class="box person"/><text x="290" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="290" y="164" class="t" data-maxw="200">Interpret</text><text x="290" y="198" class="t" data-maxw="200">the meaning</text><text x="290" y="230" class="m" data-maxw="200">notes, memory</text><circle cx="278" cy="88" r="19" class="pain"/><text x="278" y="96.5" class="pnum" text-anchor="middle">1</text><text x="276" y="278" class="m strong" data-maxw="224">→ intent</text><line x1="500" y1="164" x2="530" y2="164" class="ln" marker-end="url(#d1)"/><rect x="532" y="86" width="224" height="156" rx="8" class="box person"/><text x="546" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="546" y="164" class="t" data-maxw="200">Abstract to</text><text x="546" y="198" class="t" data-maxw="200">geometry</text><text x="546" y="230" class="m" data-maxw="200">Illustrator</text><circle cx="534" cy="88" r="19" class="pain"/><text x="534" y="96.5" class="pnum" text-anchor="middle">2</text><text x="532" y="278" class="m strong" data-maxw="224">→ vector unit</text><line x1="756" y1="164" x2="786" y2="164" class="ln" marker-end="url(#d1)"/><rect x="788" y="86" width="224" height="156" rx="8" class="box soft"/><text x="802" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="802" y="164" class="t" data-maxw="200">Build the</text><text x="802" y="198" class="t" data-maxw="200">model</text><text x="802" y="230" class="m" data-maxw="200">Grasshopper</text><text x="788" y="278" class="m strong" data-maxw="224">→ definition</text><line x1="1012" y1="164" x2="1042" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1044" y="86" width="224" height="156" rx="8" class="box soft"/><text x="1058" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="1058" y="164" class="t" data-maxw="200">Test</text><text x="1058" y="198" class="t" data-maxw="200">variants</text><text x="1058" y="230" class="m" data-maxw="200">Rhino</text><text x="1044" y="278" class="m strong" data-maxw="224">→ screenshots</text><line x1="1268" y1="164" x2="1298" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1300" y="86" width="224" height="156" rx="8" class="box person"/><text x="1314" y="120" class="chip person" data-maxw="200">CLIENT</text><text x="1314" y="164" class="t" data-maxw="200">Review</text><text x="1314" y="198" class="t" data-maxw="200">together</text><text x="1314" y="230" class="m" data-maxw="200">meeting</text><text x="1300" y="278" class="m strong" data-maxw="224">→ a choice</text><line x1="1524" y1="164" x2="1554" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1556" y="86" width="224" height="156" rx="8" class="box soft"/><text x="1570" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="1570" y="164" class="t" data-maxw="200">Document,</text><text x="1570" y="198" class="t" data-maxw="200">hand over</text><text x="1570" y="230" class="m" data-maxw="200">DXF, drawings</text><circle cx="1558" cy="88" r="19" class="pain"/><text x="1558" y="96.5" class="pnum" text-anchor="middle">4</text><text x="1556" y="278" class="m strong" data-maxw="224">→ fabricator</text><path d="M1412 86 V28 H388 V82" class="ln dash" marker-end="url(#d1)"/><text x="900.0" y="66" class="bt mu" text-anchor="middle">meaning challenged: back to step 2</text><rect x="532" y="332" width="992" height="60" rx="8" class="box stop"/><circle cx="534" cy="334" r="19" class="pain"/><text x="534" y="342.5" class="pnum" text-anchor="middle">3</text><text x="572" y="370" class="bt" data-maxw="938"><tspan class="stoplbl">VENDOR-ONLY</tspan>   picture → panel: a vendor's process the designer cannot try</text><path d="M998 242 V328" class="ln dash" marker-end="url(#d1)"/><text x="1014" y="318" class="bt mu" data-maxw="300">if it carries a picture</text><circle cx="39" cy="446" r="19" class="pain"/><text x="39" y="454.5" class="pnum" text-anchor="middle">1</text><text x="71" y="454.5" class="bt" data-maxw="400">Meaning lives in one head</text><circle cx="489" cy="446" r="19" class="pain"/><text x="489" y="454.5" class="pnum" text-anchor="middle">2</text><text x="521" y="454.5" class="bt" data-maxw="400">Rules stay implicit in the file</text><circle cx="939" cy="446" r="19" class="pain"/><text x="939" y="454.5" class="pnum" text-anchor="middle">3</text><text x="971" y="454.5" class="bt" data-maxw="400">Picture → panel: vendor-only</text><circle cx="1389" cy="446" r="19" class="pain"/><text x="1389" y="454.5" class="pnum" text-anchor="middle">4</text><text x="1421" y="454.5" class="bt" data-maxw="400">No review record, no sources</text></svg></div>
+
+<div class="foot"><span>02 · Background</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="03 Case study">
+
+<div class="eyebrow">Case study · four families of existing tools, studied as workflows</div>
+<h1>Each family stops short of the designer's hands</h1>
+<div class="fig"><svg class="diagram" viewBox="0 0 1800 760" role="img" aria-label="Coverage matrix of four families of existing tools against six workflow steps, with a note on where each family stops. The bottom row marks the gap: no family turns a motif, photograph or sentence into editable rules, a fabricable panel and a record in one place."><defs><marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d2p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><text x="480" y="30" class="chip soft">STEP IN THE WORKFLOW</text><text x="1170" y="30" class="chip pain">WHERE THE FAMILY STOPS</text><text x="530.0" y="68" class="colnum" text-anchor="middle">1</text><text x="530.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Source</text><text x="642.0" y="68" class="colnum" text-anchor="middle">2</text><text x="642.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Meaning,</text><text x="642.0" y="126" class="bt" text-anchor="middle" data-maxw="116">rules</text><text x="754.0" y="68" class="colnum" text-anchor="middle">3</text><text x="754.0" y="126" class="bt" text-anchor="middle" data-maxw="116">Geometry</text><text x="866.0" y="68" class="colnum" text-anchor="middle">4</text><text x="866.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Picture</text><text x="866.0" y="126" class="bt" text-anchor="middle" data-maxw="116">to panel</text><text x="978.0" y="68" class="colnum" text-anchor="middle">5</text><text x="978.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Files to</text><text x="978.0" y="126" class="bt" text-anchor="middle" data-maxw="116">fabricate</text><text x="1090.0" y="68" class="colnum" text-anchor="middle">6</text><text x="1090.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Review,</text><text x="1090.0" y="126" class="bt" text-anchor="middle" data-maxw="116">record</text><rect x="1170" y="76" width="40" height="26" rx="5" class="cov2"/><text x="1220" y="97" class="bt mu" data-maxw="88">covers</text><rect x="1326" y="76" width="40" height="26" rx="5" class="cov1"/><text x="1376" y="97" class="bt mu" data-maxw="80">partly</text><rect x="1474" y="76" width="40" height="26" rx="5" class="cov0"/><text x="1524" y="97" class="bt mu" data-maxw="120">not at all</text><rect x="1662" y="76" width="40" height="26" rx="5" class="gapc"/><text x="1712" y="97" class="bt mu" data-maxw="96">the gap</text><line x1="20" y1="140" x2="1780" y2="140" class="sep"/><text x="20" y="180" class="tl" data-maxw="440">Text → pattern / image</text><text x="20" y="212" class="m" data-maxw="450">Midjourney, Stable Diffusion</text><text x="20" y="242" class="m" data-maxw="450">+ LoRA cultural-pattern models</text><rect x="480" y="176" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="704" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="816" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="928" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="1040" y="176" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="184" class="nt" data-maxw="620">Raster out, no rules.</text><text x="1170" y="214" class="nt" data-maxw="620">Differs each run; no source trail.</text><line x1="20" y1="260" x2="1780" y2="260" class="sep"/><text x="20" y="300" class="tl" data-maxw="440">Image → pattern</text><text x="20" y="332" class="m" data-maxw="450">Liu et al. (CMU) symmetry</text><text x="20" y="362" class="m" data-maxw="450">detection; Taprats (Kaplan)</text><rect x="480" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="704" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="816" y="296" width="100" height="48" rx="6" class="cov0"/><rect x="928" y="296" width="100" height="48" rx="6" class="cov0"/><rect x="1040" y="296" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="304" class="nt" data-maxw="620">Classifies, or draws one tradition only.</text><text x="1170" y="334" class="nt" data-maxw="620">Needs a clean image; no new motif.</text><line x1="20" y1="380" x2="1780" y2="380" class="sep"/><text x="20" y="420" class="tl" data-maxw="440">Rules → 2D → 3D model</text><text x="20" y="452" class="m" data-maxw="450">Parakeet, CityEngine CGA,</text><text x="20" y="482" class="m" data-maxw="450">hand-built Grasshopper</text><rect x="480" y="416" width="100" height="48" rx="6" class="cov0"/><rect x="592" y="416" width="100" height="48" rx="6" class="cov1"/><rect x="704" y="416" width="100" height="48" rx="6" class="cov2"/><rect x="816" y="416" width="100" height="48" rx="6" class="cov1"/><rect x="928" y="416" width="100" height="48" rx="6" class="cov2"/><rect x="1040" y="416" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="424" class="nt" data-maxw="620">Rules from the plugin, or hand-written;</text><text x="1170" y="454" class="nt" data-maxw="620">nothing proposes them from an example.</text><text x="1170" y="484" class="nt" data-maxw="620">No cultural record.</text><line x1="20" y1="500" x2="1780" y2="500" class="sep"/><text x="20" y="540" class="tl" data-maxw="440">Picture → panel systems</text><text x="20" y="572" class="m" data-maxw="450">Ombrae™ / KPS OpticalTile™,</text><text x="20" y="602" class="m" data-maxw="450">Zahner ImageWall, Imark Ocular™</text><rect x="480" y="536" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="536" width="100" height="48" rx="6" class="cov0"/><rect x="704" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="816" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="928" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="1040" y="536" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="544" class="nt" data-maxw="620">Vendor-only: the designer cannot test</text><text x="1170" y="574" class="nt" data-maxw="620">a picture or a material. No record;</text><text x="1170" y="604" class="nt" data-maxw="620">tiles read only in their design light.</text><line x1="20" y1="620" x2="1780" y2="620" class="sep"/><line x1="20" y1="620" x2="1780" y2="620" class="sepb"/><text x="20" y="664" class="tl pn" data-maxw="440">The gap</text><text x="20" y="696" class="m" data-maxw="450">no family covers these in</text><text x="20" y="726" class="m" data-maxw="450">one place, for the designer</text><rect x="592" y="656" width="100" height="48" rx="6" class="gapc"/><rect x="816" y="656" width="100" height="48" rx="6" class="gapc"/><rect x="1040" y="656" width="100" height="48" rx="6" class="gapc"/><text x="1170" y="664" class="nt strong" data-maxw="620">One place: motif, photograph or sentence</text><text x="1170" y="694" class="nt strong" data-maxw="620">→ editable rules, a panel (cut, tiled,</text><text x="1170" y="724" class="nt strong" data-maxw="620">perforated) and a record.</text></svg></div>
+<p class="cap"><b>Ombrae™, OpticalTile™ and Sculptural Imaging™ are marks of Ombrae Studios Inc. and Keith Panel Systems; ImageWall is Zahner's; Ocular™ is Imark Metal's. Pattern Studio is an independent reconstruction of the principles for coursework, not their process or software.</b></p>
+
+<div class="foot"><span>03 · Case study</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="04 Opportunities">
+
+<div class="eyebrow">Opportunities · what AI brings, and what it must not be asked for</div>
+<h1>The model reads and proposes. Code builds and checks. The person decides.</h1>
+<div class="two">
+  <div>
+    <h2 class="ok">What AI changes</h2>
+    <ul class="list">
+      <li>A sentence becomes settings you can audit.</li>
+      <li>A picture can be asked for, then built.</li>
+      <li>A reviewer that never tires: benches and agents, daily.</li>
+    </ul>
+  </div>
+  <div>
+    <h2 class="pn">What it does not do</h2>
+    <ul class="list">
+      <li>It does not decide what a motif means.</li>
+      <li>It does not make the geometry; code does.</li>
+      <li>It does not replace the fabricator's judgment.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="foot"><span>04 · Opportunities</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="05 Proposal">
+
+<div class="eyebrow">Proposal · the tool as built, October 2026 · one HTML page</div>
+<h1>Three ways in, three panel kinds, one record</h1>
+<div class="fig"><svg class="diagram" viewBox="0 0 1800 836" role="img" aria-label="Tool logic as built. A person gives a brief, a pattern photo or a picture. A model reads the brief (or a keyword fallback), code clamps every value; a script names the symmetry and seventeen generated cases must match; the person checks what it understood and clicks Apply. One tone field feeds the tile and perforated builders, a third builder cuts patterns; code checks open area, web and gauge before the person approves and exports the bundle. A dashed standing-review lane sits outside the page: four benches, five agents, three on a schedule."><defs><marker id="d3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d3p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><rect x="20" y="50" width="380" height="330" rx="8" class="box person"/><text x="34" y="82" class="chip person" data-maxw="352">PERSON · THREE WAYS IN</text><text x="34" y="120" class="t" data-maxw="352">brief</text><text x="34" y="210" class="t" data-maxw="352">pattern photo</text><text x="34" y="310" class="t" data-maxw="352">picture</text><rect x="480" y="50" width="380" height="130" rx="8" class="box model"/><text x="494" y="82" class="chip model" data-maxw="352">MODEL · CLAUDE</text><text x="494" y="118" class="t" data-maxw="352">Reads the brief</text><text x="494" y="152" class="b2" data-maxw="352">or keyword fallback</text><rect x="940" y="50" width="380" height="130" rx="8" class="box check"/><text x="954" y="82" class="chip check" data-maxw="352">CODE CHECK</text><text x="954" y="118" class="t" data-maxw="352">Clamps every value</text><text x="954" y="152" class="b2" data-maxw="352">to buildable ranges</text><rect x="480" y="250" width="380" height="130" rx="8" class="box soft"/><text x="494" y="282" class="chip soft" data-maxw="352">SCRIPT · FFT DETECTOR</text><text x="494" y="318" class="t" data-maxw="352">Names the symmetry</text><text x="494" y="352" class="m strong" data-maxw="352">1 of 17 groups</text><rect x="940" y="250" width="380" height="130" rx="8" class="box check"/><text x="954" y="282" class="chip check" data-maxw="352">CODE CHECK</text><text x="954" y="318" class="t" data-maxw="352">17 generated cases</text><text x="954" y="352" class="b2" data-maxw="352">must match</text><rect x="1400" y="50" width="380" height="330" rx="8" class="box person"/><text x="1414" y="82" class="chip person" data-maxw="352">PERSON</text><text x="1414" y="120" class="t" data-maxw="352">Checks what it</text><text x="1414" y="154" class="t" data-maxw="352">understood</text><text x="1414" y="210" class="b2" data-maxw="352">then Apply</text><text x="1414" y="358" class="m strong" data-maxw="352">→ settings.json</text><line x1="400" y1="112" x2="478" y2="112" class="ln" marker-end="url(#d3)"/><path d="M400 202 H450 V312 H478" class="ln" marker-end="url(#d3)"/><line x1="860" y1="112" x2="938" y2="112" class="ln" marker-end="url(#d3)"/><line x1="1320" y1="112" x2="1398" y2="112" class="ln" marker-end="url(#d3)"/><line x1="860" y1="312" x2="938" y2="312" class="ln" marker-end="url(#d3)"/><line x1="1320" y1="312" x2="1398" y2="312" class="ln" marker-end="url(#d3)"/><path d="M1520 50 V12 H670 V46" class="ln" marker-end="url(#d3)"/><text x="1095.0" y="36" class="bt mu" text-anchor="middle">refine until Apply</text><rect x="480" y="192" width="380" height="44" rx="22" class="box end"/><text x="670.0" y="222" class="bt" text-anchor="middle" data-maxw="356">too vague: says unsure</text><rect x="480" y="392" width="380" height="44" rx="22" class="box end"/><text x="670.0" y="422" class="bt" text-anchor="middle" data-maxw="356">no repeat: stops, says why</text><path d="M110 380 V496" class="ln" marker-end="url(#d3)"/><text x="124" y="430" class="m strong" data-maxw="240">tone field</text><path d="M1590 380 V476 H540.0 V496" class="ln" marker-end="url(#d3)"/><path d="M539.0 476 H270 V496" class="ln" marker-end="url(#d3)"/><text x="1120" y="464" class="m strong" data-maxw="460">settings.json</text><rect x="20" y="500" width="320" height="130" rx="8" class="box soft"/><text x="34" y="532" class="chip soft" data-maxw="292">SCRIPT</text><text x="34" y="568" class="t" data-maxw="292">Picture → tiles / holes</text><text x="34" y="602" class="m strong" data-maxw="292">θ = φ + asin(2t−1)</text><rect x="380" y="500" width="320" height="130" rx="8" class="box soft"/><text x="394" y="532" class="chip soft" data-maxw="292">SCRIPT</text><text x="394" y="568" class="t" data-maxw="292">Cut pattern</text><text x="394" y="602" class="b2" data-maxw="292">41 + a composed motif</text><rect x="740" y="500" width="320" height="130" rx="8" class="box check"/><text x="754" y="532" class="chip check" data-maxw="292">CODE CHECK</text><text x="754" y="568" class="t" data-maxw="292">Before export</text><text x="754" y="602" class="b2" data-maxw="292">open area, web, gauge</text><rect x="1100" y="500" width="320" height="130" rx="8" class="box person"/><text x="1114" y="532" class="chip person" data-maxw="292">PERSON</text><text x="1114" y="568" class="t" data-maxw="292">Approves</text><text x="1114" y="602" class="b2" data-maxw="292">material, backing, light</text><rect x="1460" y="520" width="320" height="60" rx="30" class="box end"/><text x="1620.0" y="559" class="t" text-anchor="middle" data-maxw="296">Export bundle</text><text x="1474" y="616" class="m strong" data-maxw="292">.dxf .svg .stl .csv</text><text x="1474" y="646" class="m strong" data-maxw="292">.json + README</text><line x1="340" y1="550" x2="378" y2="550" class="ln" marker-end="url(#d3)"/><line x1="700" y1="550" x2="738" y2="550" class="ln" marker-end="url(#d3)"/><line x1="1060" y1="550" x2="1098" y2="550" class="ln" marker-end="url(#d3)"/><line x1="1420" y1="550" x2="1458" y2="550" class="ln" marker-end="url(#d3)"/><path d="M1440 539 l11 11 l-11 11 l-11 -11z" class="hand"/><rect x="20" y="642" width="360" height="44" rx="22" class="box end"/><text x="200.0" y="672" class="bt" text-anchor="middle" data-maxw="336">pitch too coarse: warns</text><rect x="20" y="694" width="360" height="44" rx="22" class="box end"/><text x="200.0" y="724" class="bt" text-anchor="middle" data-maxw="336">2,500+ holes: 3D as texture</text><rect x="20" y="760" width="1760" height="60" rx="10" class="box lane"/><text x="40" y="798" class="bt" data-maxw="1700"><tspan class="chip soft">STANDING REVIEW</tspan>   outside the page: 4 benches, 5 agents, 3 on a schedule</text><path d="M1090 630 V756" class="ln dash" marker-end="url(#d3)"/><path d="M1440 760 V634" class="ln dash" marker-end="url(#d3)"/></svg></div>
+
+<div class="foot"><span>05 · Proposal</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="06 Demo">
+
+<div class="eyebrow">The demo · live click-through, with the recording as backup</div>
+<h1>What it does today</h1>
+<div class="grid">
+  <figure class="cell"><div class="im"><img src="img/still-source.png" alt="Image to pattern tab with the p6m test case loaded and read"></div>
+    <figcaption><b>Image → pattern.</b> The p6m test case, read and named.</figcaption></figure>
+  <figure class="cell"><div class="im"><img src="img/still-pattern.png" alt="A brass lotus screen in the Pattern tab, 2D and 3D"></div>
+    <figcaption><b>Pattern.</b> A brass lotus screen, 2D and 3D.</figcaption></figure>
+  <figure class="cell"><div class="im"><img src="img/omb-gondola.png" alt="Ombrae optical tile panel of the Grouse Mountain gondola"></div>
+    <figcaption><b>Ombrae tiles.</b> The gondola in 10,800 tilted discs.</figcaption></figure>
+  <figure class="cell"><div class="im"><img src="img/perf-gondola.png" alt="Perforated image panel of the gondola in daylight"></div>
+    <figcaption><b>Perforated image, daylight.</b> 17,313 holes, 14.8% open.</figcaption></figure>
+  <figure class="cell"><div class="im"><img src="img/perf-backlit.png" alt="The same perforated panel backlit at night"></div>
+    <figcaption><b>Same picture, backlit.</b> This one wants a light behind it.</figcaption></figure>
+  <figure class="cell vid"><div class="im">
+      <div class="ph"><div class="lbl">Demo video</div><code>review/demo.mp4</code><div class="nt">placeholder: the recording is being made separately and will be dropped at this path</div></div>
+      <video id="demo" src="demo.mp4" controls preload="metadata" playsinline></video></div>
+    <figcaption><b>Demo video</b> — 40 s, recorded from the tool’s own guided tour: sixteen steps, every tab.</figcaption></figure>
+</div>
+
+<div class="foot"><span>06 · Demo</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="07 Methodology">
+
+<div class="eyebrow">Methodology · how it was built, and how it is checked</div>
+<h1>The maths is code. The model proposes. Benches and agents check, every day.</h1>
+<div class="three">
+  <div>
+    <h2>Built</h2>
+    <ul class="list">
+      <li>Symmetry, hinge angles and hole sizes are solved by code.</li>
+      <li>The model only proposes: settings and drawings, clamped before use.</li>
+      <li>One HTML file; opens from a double-click.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Checked</h2>
+    <ul class="list">
+      <li>Four benches drive the page in headless Chrome.</li>
+      <li>121 checks and 42 briefs: 0 failed.</li>
+      <li>Each bench writes a report in plain language.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Who runs them</h2>
+    <ul class="list">
+      <li>Five agents: qa, prompts, draw, demo, review.</li>
+      <li>Three run on a schedule.</li>
+      <li>They report; only prompts and draw may change the page.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="foot"><span>07 · Methodology</span><span class="num"></span></div>
+</section>
+<section class="slide" data-screen-label="08 Sources">
+
+<div class="eyebrow">Sources · compact</div>
+<h1>Sources</h1>
+<div class="src">
+  <div><span class="who">Anthropic.</span> “Building effective agents” (2024), the workflow patterns behind the Session 4 notation. <a href="https://www.anthropic.com/research/building-effective-agents">anthropic.com/research/building-effective-agents</a></div>
+  <div><span class="who">Keith Panel Systems / Ombrae Studios.</span> Ombrae™ OpticalTile™ brochure (2025); <a href="https://ombrae.com/technology">ombrae.com/technology</a></div>
+  <div><span class="who">Liu, Y. et al. (CMU Robotics Institute).</span> Symmetry and wallpaper-group detection in repeating patterns. <a href="https://www.ri.cmu.edu/pub_files/pub2/liu_yanxi_2000_2/liu_yanxi_2000_2.pdf">ri.cmu.edu … liu_yanxi_2000_2.pdf</a></div>
+  <div><span class="who">A. Zahner Co.</span> Custom perforation, ImageWall. <a href="https://www.azahner.com/capabilities/custom-perforation">azahner.com/capabilities/custom-perforation</a></div>
+  <div><span class="who">Kaplan, C. S.</span> Taprats and Islamic star patterns. <a href="https://taprats.sourceforge.net/">taprats.sourceforge.net</a> · <a href="https://cs.uwaterloo.ca/~csk/other/starpatterns/">cs.uwaterloo.ca/~csk/other/starpatterns</a></div>
+  <div><span class="who">Imark Metal.</span> Ocular™ perforated imaging. <a href="https://imarkmetal.com">imarkmetal.com</a></div>
+  <div><span class="who">Parakeet (Grasshopper plugin).</span> Pattern generation tutorial. <a href="https://grasshopper3d.com/video/tutorial-01-pattern-generation-using-parakeet-basics">grasshopper3d.com … parakeet-basics</a></div>
+  <div><span class="who">LoRA cultural-pattern papers.</span> “A Lightweight Diffusion Framework for Cultural Pattern Generation Using LoRA” (<a href="https://global-sci.com/JFBI/article/view/23502">JFBI</a>); “LoRA-Based Pattern Generation for Yi Ethnic Embroidery” (<a href="https://dl.acm.org/doi/10.1145/3698061.3726964">ACM, 2025</a>)</div>
+  <div><span class="who">Esri.</span> CityEngine CGA shape grammar, façade modeling tutorial. <a href="https://doc.arcgis.com/en/cityengine/2023.0/tutorials/tutorial-7-facade-modeling.htm">doc.arcgis.com … tutorial-7-facade-modeling</a></div>
+  <div><span class="who">ARCH 540.</span> Session 4, Agents: demo notes (course material). Pattern Studio: <a href="https://claude.ai/artifact/X9kjU9vH4RqwFcqBY7NKNW">link</a>, README and CLAUDE.md in the project folder.</div>
+</div>
+<p class="attrib"><b>Attribution.</b> Ombrae™, OpticalTile™ and Sculptural Imaging™ are marks of Ombrae Studios Inc. and Keith Panel Systems; ImageWall is Zahner's; Ocular™ is Imark Metal's. Pattern Studio is an independent reconstruction of the principles for coursework, not their process or software.</p>
+
+<div class="foot"><span>08 · Sources</span><span class="num"></span></div>
+</section>
+</div>
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var n = slides.length, cur = 0;
+  var KEY = 'pattern-studio-deck-slide', TKEY = 'pattern-studio-deck-theme';
+  function fit() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    stage.style.transform = 'translate(' + ((window.innerWidth - 1920 * s) / 2) + 'px,' + ((window.innerHeight - 1080 * s) / 2) + 'px) scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit); fit();
+  function show(i, keepHash) {
+    cur = Math.max(0, Math.min(n - 1, i));
+    slides.forEach(function (s, j) { s.classList.toggle('on', j === cur); });
+    var nums = document.querySelectorAll('.foot .num');
+    for (var k = 0; k < nums.length; k++) nums[k].textContent = (cur + 1) + ' / ' + n;
+    try { localStorage.setItem(KEY, String(cur + 1)); } catch (e) {}
+    if (!keepHash) { try { history.replaceState(null, '', '#' + (cur + 1)); } catch (e) {} }
+    document.title = 'Pattern Studio · ' + slides[cur].getAttribute('data-screen-label');
+  }
+  var start = parseInt(location.hash.slice(1), 10);
+  if (!(start >= 1 && start <= n)) { try { start = parseInt(localStorage.getItem(KEY), 10); } catch (e) { start = NaN; } }
+  if (!(start >= 1 && start <= n)) start = 1;
+  show(start - 1);
+  window.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'ArrowDown') { e.preventDefault(); show(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp') { e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(n - 1); }
+    else if (e.key === 't' || e.key === 'T') { toggleTheme(); }
+  });
+  window.addEventListener('hashchange', function () {
+    var h = parseInt(location.hash.slice(1), 10);
+    if (h >= 1 && h <= n && h - 1 !== cur) show(h - 1, true);
+  });
+  stage.addEventListener('click', function (e) {
+    if (e.target.closest('a, video, button')) return;
+    var r = stage.getBoundingClientRect();
+    if ((e.clientX - r.left) / r.width > 0.5) show(cur + 1); else show(cur - 1);
+  });
+  var q = null;
+  try { q = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+  var theme = q;
+  if (!theme) { try { theme = localStorage.getItem(TKEY); } catch (e) {} }
+  if (theme === 'light' || theme === 'dark') document.documentElement.setAttribute('data-theme', theme);
+  function toggleTheme() {
+    var now = document.documentElement.getAttribute('data-theme') ||
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = now === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem(TKEY, next); } catch (e) {}
+  }
+  var v = document.getElementById('demo');
+  if (v) {
+    var card = v.parentNode.parentNode;
+    var ready = function () { card.classList.add('ready'); };
+    var missing = function () { card.classList.add('missing'); };
+    v.addEventListener('loadedmetadata', ready);
+    v.addEventListener('error', missing);
+    if (v.readyState >= 1) ready(); else if (v.error) missing();   // the event may already have fired
+  }
+})();
+</script>
+</body>
+</html>
+
+</body></html>

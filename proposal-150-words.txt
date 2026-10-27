@@ -1,0 +1,7 @@
+
+Pattern Studio: a 150-word proposal
+
+Architects and landscape designers turn cultural motifs, photographs and briefs into screens and facade panels, but the path runs through one designer's head and a vendor's process: the meaning of the design stays in notes, rules stay implicit in a vector file, and picture-to-panel systems like Ombrae tiles or perforated imaging cannot be tried before an order. Pattern Studio is a single-file web tool that reads a pattern's symmetry from a photograph, reads a brief into editable settings showing what it understood, and builds one picture three ways (cut screen, tilted optical tiles, perforated image) with real stock gauges and fabrication checks in code. The model proposes a design, code clamps and checks the design, the person confirms and exports DXF, STL and a tile schedule with provenance attached. Four benches and five agents check it daily. For user sessions, a student designer, fabricator, and shop owner could create fabricable designs. 
+
+Balreet Dhatt
+Assignment 2 Mid-review 

@@ -1,0 +1,160 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pattern Studio: mid review diagrams</title>
+<meta name="description" content="Three diagrams for the ARCH 540 mid review: the as-is workflow, the case study of existing tools, and the tool logic as built.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --bg: #F6F8FA; --surface: #FFFFFF; --fg: #15202B; --muted: #566370; --line: #D6DCE2; --line-strong: #87939F;
+  --person: #1D5CA8; --person-bg: #E5EEF9; --soft-bg: #EDF0F3; --model: #8A5E00; --model-bg: #FAF0D8;
+  --pain: #B3261E; --pain-bg: #FCEAE8; --cover: #1F2D3A; --cover-soft: #D9E1E9; --on-fill: #FFFFFF;
+  --letterbox: #0B1015;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151B; --surface: #16202A; --fg: #E5EBF0; --muted: #9AA7B3; --line: #2B3843; --line-strong: #6B7987;
+    --person: #7FB4F2; --person-bg: #172A3D; --soft-bg: #1B252E; --model: #E2BA55; --model-bg: #2D2710;
+    --pain: #FF8F82; --pain-bg: #3A1E1B; --cover: #C9D6E2; --cover-soft: #2A3743; --on-fill: #0E151B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151B; --surface: #16202A; --fg: #E5EBF0; --muted: #9AA7B3; --line: #2B3843; --line-strong: #6B7987;
+  --person: #7FB4F2; --person-bg: #172A3D; --soft-bg: #1B252E; --model: #E2BA55; --model-bg: #2D2710;
+  --pain: #FF8F82; --pain-bg: #3A1E1B; --cover: #C9D6E2; --cover-soft: #2A3743; --on-fill: #0E151B;
+  color-scheme: dark;
+}
+
+body { margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:18px; line-height:1.5;
+  padding:36px max(16px, env(safe-area-inset-right,0px)) 72px max(16px, env(safe-area-inset-left,0px)); }
+.wrap { max-width:1560px; margin:0 auto; display:flex; flex-direction:column; gap:44px; }
+.wrap > * { min-width:0; }
+h1 { font-size:clamp(28px, 3.4vw, 40px); line-height:1.12; font-weight:600; letter-spacing:-.01em; margin:6px 0 10px; text-wrap:balance; }
+h2 { font-size:26px; line-height:1.25; font-weight:600; margin:0 0 4px; text-wrap:balance; }
+p { margin:0; max-width:78ch; }
+.eyebrow { font:500 13px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.lede { font-size:19px; }
+.legend { font-size:15px; }
+section { display:flex; flex-direction:column; gap:12px; }
+figure { margin:0; display:flex; flex-direction:column; gap:10px; }
+.scroll { overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); padding:18px 14px; }
+.scroll svg { min-width:1360px; }
+figcaption { font-size:16px; color:var(--muted); max-width:100ch; }
+figcaption b { color:var(--fg); font-weight:600; }
+a { color:var(--person); text-underline-offset:2px; }
+a:focus-visible { outline:2px solid var(--person); outline-offset:2px; }
+
+.legend { display:flex; flex-wrap:wrap; gap:10px 26px; color:var(--muted); align-items:center; }
+.legend span { display:inline-flex; align-items:center; gap:9px; white-space:nowrap; }
+.sw { display:inline-block; width:30px; height:19px; border-radius:4px; border:2px solid var(--line-strong); box-sizing:border-box; }
+.sw.person { background:var(--person-bg); border-color:var(--person); }
+.sw.soft { background:var(--soft-bg); }
+.sw.model { background:var(--model-bg); border-color:var(--model); border-style:dashed; }
+.sw.stop { background:var(--pain-bg); border-color:var(--pain); border-style:dashed; }
+.sw.check { background:var(--surface); border:3px solid var(--fg); }
+.sw.end { background:var(--surface); border-color:var(--fg); border-radius:10px; }
+.k { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:4px; font:600 15px var(--mono); color:var(--on-fill); }
+.k.J { background:var(--person); } .k.R { background:var(--muted); } .k.I { background:var(--surface); color:var(--muted); border:1.5px solid var(--muted); }
+.dot { display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--pain); color:var(--on-fill); font:600 15px var(--mono); }
+.dia { width:14px; height:14px; background:var(--fg); transform:rotate(45deg) scale(.8); display:inline-block; }
+
+svg.diagram { display:block; width:100%; height:auto; font-family: var(--sans); }
+.box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 2; }
+.box.person { fill: var(--person-bg); stroke: var(--person); }
+.box.soft { fill: var(--soft-bg); stroke: var(--line-strong); }
+.box.model { fill: var(--model-bg); stroke: var(--model); stroke-dasharray: 9 6; }
+.box.stop { fill: var(--pain-bg); stroke: var(--pain); stroke-dasharray: 9 6; }
+.box.lane { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-dasharray: 10 8; }
+.box.plain { fill: var(--surface); stroke: var(--line); }
+.box.check { fill: var(--surface); stroke: var(--fg); stroke-width: 3.5; }
+.box.end { fill: var(--surface); stroke: var(--fg); stroke-width: 2.4; }
+.t { font: 600 28px var(--sans); fill: var(--fg); }
+.tl { font: 600 28px var(--sans); fill: var(--fg); }
+.tl.pn { fill: var(--pain); }
+.bt { font: 400 24px var(--sans); fill: var(--fg); }
+.bt.mu { fill: var(--muted); }
+.b2 { font: 400 26px var(--sans); fill: var(--fg); }
+.b2.mu { fill: var(--muted); }
+.m { font: 400 24px var(--mono); fill: var(--muted); }
+.m.strong { fill: var(--fg); }
+.nt { font: 400 24px var(--mono); fill: var(--muted); }
+.nt.strong { fill: var(--fg); }
+.colnum { font: 600 28px var(--mono); fill: var(--fg); }
+.chip { font: 500 24px var(--mono); letter-spacing: .05em; }
+.chip.person { fill: var(--person); } .chip.soft { fill: var(--muted); } .chip.model { fill: var(--model); }
+.chip.pain { fill: var(--pain); } .chip.check { fill: var(--fg); } .chip.end { fill: var(--fg); }
+.ln { stroke: var(--line-strong); stroke-width: 2.4; fill: none; }
+.ln.dash { stroke-dasharray: 10 8; }
+.ln.pn { stroke: var(--pain); }
+.mk { fill: var(--line-strong); } .mkp { fill: var(--pain); }
+.pain { fill: var(--pain); }
+.pnum { font: 600 24px var(--mono); fill: var(--on-fill); }
+.tagJ { fill: var(--person); } .tagR { fill: var(--muted); } .tagI { fill: var(--surface); stroke: var(--muted); stroke-width: 2; }
+.tagt { font: 600 24px var(--mono); fill: var(--on-fill); } .tagt.i { fill: var(--muted); }
+.hand { fill: var(--fg); }
+.cov2 { fill: var(--cover); }
+.cov1 { fill: var(--cover-soft); stroke: var(--cover); stroke-width: 2; }
+.cov0 { fill: none; stroke: var(--line); stroke-width: 2; }
+.gapc { fill: var(--pain-bg); stroke: var(--pain); stroke-width: 2; stroke-dasharray: 8 6; }
+.sep { stroke: var(--line); stroke-width: 1.5; }
+.sepb { stroke: var(--line-strong); stroke-width: 2.4; }
+.stoplbl { font: 600 24px var(--mono); letter-spacing: .08em; fill: var(--pain); }
+.stopt { font: 400 24px var(--mono); fill: var(--fg); }
+</style>
+</head>
+<body>
+<main class="wrap">
+<header style="display:flex;flex-direction:column;gap:12px">
+  <div class="eyebrow">ARCH 540 · Assignment 2 · Mid review · Fri Oct 23 2026 · Balreet Dhatt</div>
+  <h1>Pattern Studio: how a motif becomes a panel today, where the tools stop, and what was built</h1>
+  <p class="lede">Three figures, ninety seconds, in the Session 4 notation: who does a step, what is handed on, where a tool stops, which checks are code.</p>
+  <div class="legend" aria-label="Legend">
+  <span><i class="sw person"></i>Person step</span>
+  <span><i class="sw soft"></i>Software step</span>
+  <span><i class="sw model"></i>Model step</span>
+  <span><i class="dot">1</i>Pain point</span>
+  <span><i class="dia"></i>Handoff to someone else</span>
+  <span><i class="sw stop"></i>Where a tool stops</span>
+  <span><i class="sw check"></i>Code check, cannot be skipped</span>
+  <span><i class="sw end"></i>Stop or finish</span>
+</div>
+</header>
+
+<section id="f1">
+  <div class="eyebrow">1 · Background · how it is done today</div>
+  <h2>Figure 1. As-is workflow: seven steps, one vendor, and the meaning travels in one head</h2>
+  <figure>
+    <div class="scroll"><svg class="diagram" viewBox="0 0 1800 480" role="img" aria-label="As-is workflow in seven steps, from collecting references to hand-over, with four numbered pain points, a vendor-only branch for picture-to-panel work, and one dashed loop from review back to interpretation."><defs><marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d1p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><rect x="20" y="86" width="224" height="156" rx="8" class="box person"/><text x="34" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="34" y="164" class="t" data-maxw="200">Collect</text><text x="34" y="198" class="t" data-maxw="200">references</text><text x="34" y="230" class="m" data-maxw="200">web, books</text><text x="20" y="278" class="m strong" data-maxw="224">→ moodboard</text><line x1="244" y1="164" x2="274" y2="164" class="ln" marker-end="url(#d1)"/><rect x="276" y="86" width="224" height="156" rx="8" class="box person"/><text x="290" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="290" y="164" class="t" data-maxw="200">Interpret</text><text x="290" y="198" class="t" data-maxw="200">the meaning</text><text x="290" y="230" class="m" data-maxw="200">notes, memory</text><circle cx="278" cy="88" r="19" class="pain"/><text x="278" y="96.5" class="pnum" text-anchor="middle">1</text><text x="276" y="278" class="m strong" data-maxw="224">→ intent</text><line x1="500" y1="164" x2="530" y2="164" class="ln" marker-end="url(#d1)"/><rect x="532" y="86" width="224" height="156" rx="8" class="box person"/><text x="546" y="120" class="chip person" data-maxw="200">DESIGNER</text><text x="546" y="164" class="t" data-maxw="200">Abstract to</text><text x="546" y="198" class="t" data-maxw="200">geometry</text><text x="546" y="230" class="m" data-maxw="200">Illustrator</text><circle cx="534" cy="88" r="19" class="pain"/><text x="534" y="96.5" class="pnum" text-anchor="middle">2</text><text x="532" y="278" class="m strong" data-maxw="224">→ vector unit</text><line x1="756" y1="164" x2="786" y2="164" class="ln" marker-end="url(#d1)"/><rect x="788" y="86" width="224" height="156" rx="8" class="box soft"/><text x="802" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="802" y="164" class="t" data-maxw="200">Build the</text><text x="802" y="198" class="t" data-maxw="200">model</text><text x="802" y="230" class="m" data-maxw="200">Grasshopper</text><text x="788" y="278" class="m strong" data-maxw="224">→ definition</text><line x1="1012" y1="164" x2="1042" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1044" y="86" width="224" height="156" rx="8" class="box soft"/><text x="1058" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="1058" y="164" class="t" data-maxw="200">Test</text><text x="1058" y="198" class="t" data-maxw="200">variants</text><text x="1058" y="230" class="m" data-maxw="200">Rhino</text><text x="1044" y="278" class="m strong" data-maxw="224">→ screenshots</text><line x1="1268" y1="164" x2="1298" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1300" y="86" width="224" height="156" rx="8" class="box person"/><text x="1314" y="120" class="chip person" data-maxw="200">CLIENT</text><text x="1314" y="164" class="t" data-maxw="200">Review</text><text x="1314" y="198" class="t" data-maxw="200">together</text><text x="1314" y="230" class="m" data-maxw="200">meeting</text><text x="1300" y="278" class="m strong" data-maxw="224">→ a choice</text><line x1="1524" y1="164" x2="1554" y2="164" class="ln" marker-end="url(#d1)"/><rect x="1556" y="86" width="224" height="156" rx="8" class="box soft"/><text x="1570" y="120" class="chip soft" data-maxw="200">DESIGNER</text><text x="1570" y="164" class="t" data-maxw="200">Document,</text><text x="1570" y="198" class="t" data-maxw="200">hand over</text><text x="1570" y="230" class="m" data-maxw="200">DXF, drawings</text><circle cx="1558" cy="88" r="19" class="pain"/><text x="1558" y="96.5" class="pnum" text-anchor="middle">4</text><text x="1556" y="278" class="m strong" data-maxw="224">→ fabricator</text><path d="M1412 86 V28 H388 V82" class="ln dash" marker-end="url(#d1)"/><text x="900.0" y="66" class="bt mu" text-anchor="middle">meaning challenged: back to step 2</text><rect x="532" y="332" width="992" height="60" rx="8" class="box stop"/><circle cx="534" cy="334" r="19" class="pain"/><text x="534" y="342.5" class="pnum" text-anchor="middle">3</text><text x="572" y="370" class="bt" data-maxw="938"><tspan class="stoplbl">VENDOR-ONLY</tspan>   picture → panel: a vendor's process the designer cannot try</text><path d="M998 242 V328" class="ln dash" marker-end="url(#d1)"/><text x="1014" y="318" class="bt mu" data-maxw="300">if it carries a picture</text><circle cx="39" cy="446" r="19" class="pain"/><text x="39" y="454.5" class="pnum" text-anchor="middle">1</text><text x="71" y="454.5" class="bt" data-maxw="400">Meaning lives in one head</text><circle cx="489" cy="446" r="19" class="pain"/><text x="489" y="454.5" class="pnum" text-anchor="middle">2</text><text x="521" y="454.5" class="bt" data-maxw="400">Rules stay implicit in the file</text><circle cx="939" cy="446" r="19" class="pain"/><text x="939" y="454.5" class="pnum" text-anchor="middle">3</text><text x="971" y="454.5" class="bt" data-maxw="400">Picture → panel: vendor-only</text><circle cx="1389" cy="446" r="19" class="pain"/><text x="1389" y="454.5" class="pnum" text-anchor="middle">4</text><text x="1421" y="454.5" class="bt" data-maxw="400">No review record, no sources</text></svg></div>
+    <figcaption>Each box: who, what, with which tool; the mono line is what is handed on. The dashed loop is the costly one: a challenge to the meaning sends the work back to step 2. The red dashed box is the picture-to-panel path, today a vendor's process the designer cannot try before ordering.</figcaption>
+  </figure>
+</section>
+
+<section id="f2">
+  <div class="eyebrow">2 · Case study · four families of existing tools, studied as workflows</div>
+  <h2>Figure 2. Where each family of tools stops</h2>
+  <figure>
+    <div class="scroll"><svg class="diagram" viewBox="0 0 1800 760" role="img" aria-label="Coverage matrix of four families of existing tools against six workflow steps, with a note on where each family stops. The bottom row marks the gap: no family turns a motif, photograph or sentence into editable rules, a fabricable panel and a record in one place."><defs><marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d2p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><text x="480" y="30" class="chip soft">STEP IN THE WORKFLOW</text><text x="1170" y="30" class="chip pain">WHERE THE FAMILY STOPS</text><text x="530.0" y="68" class="colnum" text-anchor="middle">1</text><text x="530.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Source</text><text x="642.0" y="68" class="colnum" text-anchor="middle">2</text><text x="642.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Meaning,</text><text x="642.0" y="126" class="bt" text-anchor="middle" data-maxw="116">rules</text><text x="754.0" y="68" class="colnum" text-anchor="middle">3</text><text x="754.0" y="126" class="bt" text-anchor="middle" data-maxw="116">Geometry</text><text x="866.0" y="68" class="colnum" text-anchor="middle">4</text><text x="866.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Picture</text><text x="866.0" y="126" class="bt" text-anchor="middle" data-maxw="116">to panel</text><text x="978.0" y="68" class="colnum" text-anchor="middle">5</text><text x="978.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Files to</text><text x="978.0" y="126" class="bt" text-anchor="middle" data-maxw="116">fabricate</text><text x="1090.0" y="68" class="colnum" text-anchor="middle">6</text><text x="1090.0" y="98" class="bt" text-anchor="middle" data-maxw="116">Review,</text><text x="1090.0" y="126" class="bt" text-anchor="middle" data-maxw="116">record</text><rect x="1170" y="76" width="40" height="26" rx="5" class="cov2"/><text x="1220" y="97" class="bt mu" data-maxw="88">covers</text><rect x="1326" y="76" width="40" height="26" rx="5" class="cov1"/><text x="1376" y="97" class="bt mu" data-maxw="80">partly</text><rect x="1474" y="76" width="40" height="26" rx="5" class="cov0"/><text x="1524" y="97" class="bt mu" data-maxw="120">not at all</text><rect x="1662" y="76" width="40" height="26" rx="5" class="gapc"/><text x="1712" y="97" class="bt mu" data-maxw="96">the gap</text><line x1="20" y1="140" x2="1780" y2="140" class="sep"/><text x="20" y="180" class="tl" data-maxw="440">Text → pattern / image</text><text x="20" y="212" class="m" data-maxw="450">Midjourney, Stable Diffusion</text><text x="20" y="242" class="m" data-maxw="450">+ LoRA cultural-pattern models</text><rect x="480" y="176" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="704" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="816" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="928" y="176" width="100" height="48" rx="6" class="cov0"/><rect x="1040" y="176" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="184" class="nt" data-maxw="620">Raster out, no rules.</text><text x="1170" y="214" class="nt" data-maxw="620">Differs each run; no source trail.</text><line x1="20" y1="260" x2="1780" y2="260" class="sep"/><text x="20" y="300" class="tl" data-maxw="440">Image → pattern</text><text x="20" y="332" class="m" data-maxw="450">Liu et al. (CMU) symmetry</text><text x="20" y="362" class="m" data-maxw="450">detection; Taprats (Kaplan)</text><rect x="480" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="704" y="296" width="100" height="48" rx="6" class="cov1"/><rect x="816" y="296" width="100" height="48" rx="6" class="cov0"/><rect x="928" y="296" width="100" height="48" rx="6" class="cov0"/><rect x="1040" y="296" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="304" class="nt" data-maxw="620">Classifies, or draws one tradition only.</text><text x="1170" y="334" class="nt" data-maxw="620">Needs a clean image; no new motif.</text><line x1="20" y1="380" x2="1780" y2="380" class="sep"/><text x="20" y="420" class="tl" data-maxw="440">Rules → 2D → 3D model</text><text x="20" y="452" class="m" data-maxw="450">Parakeet, CityEngine CGA,</text><text x="20" y="482" class="m" data-maxw="450">hand-built Grasshopper</text><rect x="480" y="416" width="100" height="48" rx="6" class="cov0"/><rect x="592" y="416" width="100" height="48" rx="6" class="cov1"/><rect x="704" y="416" width="100" height="48" rx="6" class="cov2"/><rect x="816" y="416" width="100" height="48" rx="6" class="cov1"/><rect x="928" y="416" width="100" height="48" rx="6" class="cov2"/><rect x="1040" y="416" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="424" class="nt" data-maxw="620">Rules from the plugin, or hand-written;</text><text x="1170" y="454" class="nt" data-maxw="620">nothing proposes them from an example.</text><text x="1170" y="484" class="nt" data-maxw="620">No cultural record.</text><line x1="20" y1="500" x2="1780" y2="500" class="sep"/><text x="20" y="540" class="tl" data-maxw="440">Picture → panel systems</text><text x="20" y="572" class="m" data-maxw="450">Ombrae™ / KPS OpticalTile™,</text><text x="20" y="602" class="m" data-maxw="450">Zahner ImageWall, Imark Ocular™</text><rect x="480" y="536" width="100" height="48" rx="6" class="cov1"/><rect x="592" y="536" width="100" height="48" rx="6" class="cov0"/><rect x="704" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="816" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="928" y="536" width="100" height="48" rx="6" class="cov2"/><rect x="1040" y="536" width="100" height="48" rx="6" class="cov0"/><text x="1170" y="544" class="nt" data-maxw="620">Vendor-only: the designer cannot test</text><text x="1170" y="574" class="nt" data-maxw="620">a picture or a material. No record;</text><text x="1170" y="604" class="nt" data-maxw="620">tiles read only in their design light.</text><line x1="20" y1="620" x2="1780" y2="620" class="sep"/><line x1="20" y1="620" x2="1780" y2="620" class="sepb"/><text x="20" y="664" class="tl pn" data-maxw="440">The gap</text><text x="20" y="696" class="m" data-maxw="450">no family covers these in</text><text x="20" y="726" class="m" data-maxw="450">one place, for the designer</text><rect x="592" y="656" width="100" height="48" rx="6" class="gapc"/><rect x="816" y="656" width="100" height="48" rx="6" class="gapc"/><rect x="1040" y="656" width="100" height="48" rx="6" class="gapc"/><text x="1170" y="664" class="nt strong" data-maxw="620">One place: motif, photograph or sentence</text><text x="1170" y="694" class="nt strong" data-maxw="620">→ editable rules, a panel (cut, tiled,</text><text x="1170" y="724" class="nt strong" data-maxw="620">perforated) and a record.</text></svg></div>
+    <figcaption>Read across for one family and down for the step. Filled cells cover a step, outlined cells part of it, empty cells none. The red dashed cells are the gap: editable rules from a motif, a picture-to-panel path the designer can try, and a record, in one place. <b>Ombrae™, OpticalTile™ and Sculptural Imaging™ are marks of Ombrae Studios Inc. and Keith Panel Systems; ImageWall is Zahner's; Ocular™ is Imark Metal's. Pattern Studio is an independent reconstruction of the principles for coursework, not their process or software.</b></figcaption>
+  </figure>
+</section>
+
+<section id="f3">
+  <div class="eyebrow">3 · Proposal · the tool as it exists today</div>
+  <h2>Figure 3. Tool logic, as built: three ways in, code checks that cannot be skipped, a person who applies and approves</h2>
+  <figure>
+    <div class="scroll"><svg class="diagram" viewBox="0 0 1800 836" role="img" aria-label="Tool logic as built. A person gives a brief, a pattern photo or a picture. A model reads the brief (or a keyword fallback), code clamps every value; a script names the symmetry and seventeen generated cases must match; the person checks what it understood and clicks Apply. One tone field feeds the tile and perforated builders, a third builder cuts patterns; code checks open area, web and gauge before the person approves and exports the bundle. A dashed standing-review lane sits outside the page: four benches, five agents, three on a schedule."><defs><marker id="d3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mk"/></marker><marker id="d3p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="mkp"/></marker></defs><rect x="20" y="50" width="380" height="330" rx="8" class="box person"/><text x="34" y="82" class="chip person" data-maxw="352">PERSON · THREE WAYS IN</text><text x="34" y="120" class="t" data-maxw="352">brief</text><text x="34" y="210" class="t" data-maxw="352">pattern photo</text><text x="34" y="310" class="t" data-maxw="352">picture</text><rect x="480" y="50" width="380" height="130" rx="8" class="box model"/><text x="494" y="82" class="chip model" data-maxw="352">MODEL · CLAUDE</text><text x="494" y="118" class="t" data-maxw="352">Reads the brief</text><text x="494" y="152" class="b2" data-maxw="352">or keyword fallback</text><rect x="940" y="50" width="380" height="130" rx="8" class="box check"/><text x="954" y="82" class="chip check" data-maxw="352">CODE CHECK</text><text x="954" y="118" class="t" data-maxw="352">Clamps every value</text><text x="954" y="152" class="b2" data-maxw="352">to buildable ranges</text><rect x="480" y="250" width="380" height="130" rx="8" class="box soft"/><text x="494" y="282" class="chip soft" data-maxw="352">SCRIPT · FFT DETECTOR</text><text x="494" y="318" class="t" data-maxw="352">Names the symmetry</text><text x="494" y="352" class="m strong" data-maxw="352">1 of 17 groups</text><rect x="940" y="250" width="380" height="130" rx="8" class="box check"/><text x="954" y="282" class="chip check" data-maxw="352">CODE CHECK</text><text x="954" y="318" class="t" data-maxw="352">17 generated cases</text><text x="954" y="352" class="b2" data-maxw="352">must match</text><rect x="1400" y="50" width="380" height="330" rx="8" class="box person"/><text x="1414" y="82" class="chip person" data-maxw="352">PERSON</text><text x="1414" y="120" class="t" data-maxw="352">Checks what it</text><text x="1414" y="154" class="t" data-maxw="352">understood</text><text x="1414" y="210" class="b2" data-maxw="352">then Apply</text><text x="1414" y="358" class="m strong" data-maxw="352">→ settings.json</text><line x1="400" y1="112" x2="478" y2="112" class="ln" marker-end="url(#d3)"/><path d="M400 202 H450 V312 H478" class="ln" marker-end="url(#d3)"/><line x1="860" y1="112" x2="938" y2="112" class="ln" marker-end="url(#d3)"/><line x1="1320" y1="112" x2="1398" y2="112" class="ln" marker-end="url(#d3)"/><line x1="860" y1="312" x2="938" y2="312" class="ln" marker-end="url(#d3)"/><line x1="1320" y1="312" x2="1398" y2="312" class="ln" marker-end="url(#d3)"/><path d="M1520 50 V12 H670 V46" class="ln" marker-end="url(#d3)"/><text x="1095.0" y="36" class="bt mu" text-anchor="middle">refine until Apply</text><rect x="480" y="192" width="380" height="44" rx="22" class="box end"/><text x="670.0" y="222" class="bt" text-anchor="middle" data-maxw="356">too vague: says unsure</text><rect x="480" y="392" width="380" height="44" rx="22" class="box end"/><text x="670.0" y="422" class="bt" text-anchor="middle" data-maxw="356">no repeat: stops, says why</text><path d="M110 380 V496" class="ln" marker-end="url(#d3)"/><text x="124" y="430" class="m strong" data-maxw="240">tone field</text><path d="M1590 380 V476 H540.0 V496" class="ln" marker-end="url(#d3)"/><path d="M539.0 476 H270 V496" class="ln" marker-end="url(#d3)"/><text x="1120" y="464" class="m strong" data-maxw="460">settings.json</text><rect x="20" y="500" width="320" height="130" rx="8" class="box soft"/><text x="34" y="532" class="chip soft" data-maxw="292">SCRIPT</text><text x="34" y="568" class="t" data-maxw="292">Picture → tiles / holes</text><text x="34" y="602" class="m strong" data-maxw="292">θ = φ + asin(2t−1)</text><rect x="380" y="500" width="320" height="130" rx="8" class="box soft"/><text x="394" y="532" class="chip soft" data-maxw="292">SCRIPT</text><text x="394" y="568" class="t" data-maxw="292">Cut pattern</text><text x="394" y="602" class="b2" data-maxw="292">41 + a composed motif</text><rect x="740" y="500" width="320" height="130" rx="8" class="box check"/><text x="754" y="532" class="chip check" data-maxw="292">CODE CHECK</text><text x="754" y="568" class="t" data-maxw="292">Before export</text><text x="754" y="602" class="b2" data-maxw="292">open area, web, gauge</text><rect x="1100" y="500" width="320" height="130" rx="8" class="box person"/><text x="1114" y="532" class="chip person" data-maxw="292">PERSON</text><text x="1114" y="568" class="t" data-maxw="292">Approves</text><text x="1114" y="602" class="b2" data-maxw="292">material, backing, light</text><rect x="1460" y="520" width="320" height="60" rx="30" class="box end"/><text x="1620.0" y="559" class="t" text-anchor="middle" data-maxw="296">Export bundle</text><text x="1474" y="616" class="m strong" data-maxw="292">.dxf .svg .stl .csv</text><text x="1474" y="646" class="m strong" data-maxw="292">.json + README</text><line x1="340" y1="550" x2="378" y2="550" class="ln" marker-end="url(#d3)"/><line x1="700" y1="550" x2="738" y2="550" class="ln" marker-end="url(#d3)"/><line x1="1060" y1="550" x2="1098" y2="550" class="ln" marker-end="url(#d3)"/><line x1="1420" y1="550" x2="1458" y2="550" class="ln" marker-end="url(#d3)"/><path d="M1440 539 l11 11 l-11 11 l-11 -11z" class="hand"/><rect x="20" y="642" width="360" height="44" rx="22" class="box end"/><text x="200.0" y="672" class="bt" text-anchor="middle" data-maxw="336">pitch too coarse: warns</text><rect x="20" y="694" width="360" height="44" rx="22" class="box end"/><text x="200.0" y="724" class="bt" text-anchor="middle" data-maxw="336">2,500+ holes: 3D as texture</text><rect x="20" y="760" width="1760" height="60" rx="10" class="box lane"/><text x="40" y="798" class="bt" data-maxw="1700"><tspan class="chip soft">STANDING REVIEW</tspan>   outside the page: 4 benches, 5 agents, 3 on a schedule</text><path d="M1090 630 V756" class="ln dash" marker-end="url(#d3)"/><path d="M1440 760 V634" class="ln dash" marker-end="url(#d3)"/></svg></div>
+    <figcaption>Mono type marks the files that move between steps. The refine loop ends when the person clicks Apply; the page does not count rounds. Above 2,500 holes the 3D view draws the holes as a texture. The dashed lane is outside the page: four benches (<code>run-qa.py</code> 119 checks, <code>run-prompts.py</code> 24 briefs, <code>run-draw.py</code>, the demo recorder) and five agents (qa, prompts, draw, demo, review), three of them on a schedule. Live tool: <a href="https://claude.ai/artifact/X9kjU9vH4RqwFcqBY7NKNW">link</a> (private until shared).</figcaption>
+  </figure>
+</section>
+</main>
+</body>
+</html>
+
+</body></html>
