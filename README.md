@@ -6,8 +6,11 @@ A motif, a photograph or a sentence → rules → a panel → cut files. Pattern
 
 ## Links
 
-- **Slides**: `index.html` in this repository (with GitHub Pages: the repository's front page).
-- **Tool, frozen as it stood on 23 October 2026 before 1 pm**: https://claude.ai/artifact/9rXMyBMiEa2braopF7yDky (the same file as `pattern-studio.html` here).
+- **▶ Open the tool**: https://balreetdhatt.github.io/ARCH-540-Midreview-Pattern-Studio/pattern-studio.html — frozen as it stood on 23 October 2026 before 1 pm.
+- **▶ Slides**: https://balreetdhatt.github.io/ARCH-540-Midreview-Pattern-Studio/ (`index.html`; arrow keys move between slides).
+- **Diagrams**: https://balreetdhatt.github.io/ARCH-540-Midreview-Pattern-Studio/diagrams.html
+
+On GitHub Pages the tool runs without Claude: describing a panel in words falls back to a keyword reading (it says so on screen), and exports use the browser's normal download.
 
 ## What is here
 
